@@ -27,6 +27,27 @@
 #define XLATE(p, pst, vst)((void __iomem *)((p) - (pst) + (vst)))
 
 /*
+ * Fix implicit declaration of function '__arm_ioremap' 
+ */
+
+void __iomem *
+__arm_ioremap(unsigned long phys_addr, size_t size, unsigned int mtype)
+{
+	unsigned long last_addr;
+ 	unsigned long offset = phys_addr & ~PAGE_MASK;
+ 	unsigned long pfn = __phys_to_pfn(phys_addr);
+
+ 	/*
+ 	 * Don't allow wraparound or zero size
+	 */
+	last_addr = phys_addr + size - 1;
+	if (!size || last_addr < phys_addr)
+		return NULL;
+
+ 	return __arm_ioremap_pfn(pfn, offset, size, mtype);
+}
+
+/*
  * Intercept ioremap() requests for addresses in our fixed mapping regions.
  */
 void __iomem *cs_ioremap(unsigned long p, size_t size, unsigned int type)

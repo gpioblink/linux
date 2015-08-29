@@ -54,10 +54,10 @@ static irqreturn_t bogus_int(int irq, void *dev_id, struct pt_regs *regs)
 
 static struct irq_chip cs_vic_chip = {
     .name   = "CSVIC",
-    .mask_ack = cs_irq_ack,
-    .ack = cs_irq_ack,
-    .mask   = cs_irq_disable,
-    .unmask = cs_irq_enable,
+    .irq_mask_ack = cs_irq_ack,
+    .irq_ack = cs_irq_ack,
+    .irq_mask   = cs_irq_disable,
+    .irq_unmask = cs_irq_enable,
 };
 
 
@@ -76,8 +76,8 @@ void __init cs_init_irq(void)
     
     /* Regist handler */
     for (i = 0; i < NR_IRQS_VIC; i++) {
-        set_irq_chip(i, &cs_vic_chip);
-        set_irq_handler(i, handle_level_irq);
+        irq_set_chip(i, &cs_vic_chip);
+        irq_set_handler(i, handle_level_irq);
         set_irq_flags(i, IRQF_VALID | IRQF_PROBE);
     }
 }
