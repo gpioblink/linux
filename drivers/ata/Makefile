@@ -38,6 +38,7 @@ obj-$(CONFIG_SATA_SX4)		+= sata_sx4.o
 obj-$(CONFIG_ATA_PIIX)		+= ata_piix.o
 obj-$(CONFIG_SATA_MV)		+= sata_mv.o
 obj-$(CONFIG_SATA_NV)		+= sata_nv.o
+obj-$(CONFIG_SATA_CNC)		+= cnc18xx_sata.o
 obj-$(CONFIG_SATA_PROMISE)	+= sata_promise.o
 obj-$(CONFIG_SATA_RCAR)		+= sata_rcar.o
 obj-$(CONFIG_SATA_SIL)		+= sata_sil.o
