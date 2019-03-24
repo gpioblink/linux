@@ -40,6 +40,7 @@ obj-$(CONFIG_ARCNET) += arcnet/
 obj-$(CONFIG_DEV_APPLETALK) += appletalk/
 obj-$(CONFIG_CAIF) += caif/
 obj-$(CONFIG_CAN) += can/
+obj-$(CONFIG_CN100_MAC) += cn100/
 obj-$(CONFIG_ETRAX_ETHERNET) += cris/
 obj-y += dsa/
 obj-$(CONFIG_ETHERNET) += ethernet/
