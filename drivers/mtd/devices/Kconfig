@@ -231,4 +231,16 @@ config BCH_CONST_T
 	default 4
 endif
 
+config MTD_SPIDEV
+        bool "CNC1800x spi flash support"
+		depends on !SPI
+        help
+          spi flash support for csm1800
+
+config SPI_CHARDEV
+        bool "CNC1800x slave device support"
+		depends on MTD_SPIDEV
+        help
+          If choose this option, then spi flash no longer works.
+
 endmenu
