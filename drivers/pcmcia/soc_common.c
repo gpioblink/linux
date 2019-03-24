@@ -798,6 +798,7 @@ int soc_pcmcia_add_one(struct soc_pcmcia_socket *skt)
 		    (unsigned long)skt);
 	skt->poll_timer.expires = jiffies + SOC_PCMCIA_POLL_PERIOD;
 
+#if 0
 	ret = request_resource(&iomem_resource, &skt->res_skt);
 	if (ret)
 		goto out_err_1;
@@ -813,7 +814,7 @@ int soc_pcmcia_add_one(struct soc_pcmcia_socket *skt)
 	ret = request_resource(&skt->res_skt, &skt->res_attr);
 	if (ret)
 		goto out_err_4;
-
+#endif
 	skt->virt_io = ioremap(skt->res_io.start, 0x10000);
 	if (skt->virt_io == NULL) {
 		ret = -ENOMEM;
@@ -832,6 +833,19 @@ int soc_pcmcia_add_one(struct soc_pcmcia_socket *skt)
 		goto out_err_6;
 
 	skt->socket.ops = &soc_common_pcmcia_operations;
+#ifdef CSM18XX_PCMCIA
+	skt->socket.ops->set_cis_rmode  = ops->set_cis_rmode;
+	skt->socket.ops->set_cis_wmode  = ops->set_cis_wmode;
+	skt->socket.ops->set_comm_rmode = ops->set_comm_rmode;
+	skt->socket.ops->set_comm_wmode = ops->set_comm_wmode;
+	skt->socket.ops->set_io_mode    = ops->set_io_mode;
+	skt->socket.ops->read_cis       = ops->read_cis;
+	skt->socket.ops->write_cis      = ops->write_cis;
+	skt->socket.ops->read_comm      = ops->read_comm;
+	skt->socket.ops->write_comm     = ops->write_comm;
+	skt->socket.ops->read_io        = ops->read_io;
+	skt->socket.ops->write_io       = ops->write_io;
+#endif
 	skt->socket.features = SS_CAP_STATIC_MAP|SS_CAP_PCCARD;
 	skt->socket.resource_ops = &pccard_static_ops;
 	skt->socket.irq_mask = 0;

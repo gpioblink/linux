@@ -75,3 +75,5 @@ pxa2xx-obj-$(CONFIG_MACH_H4700)			+= pxa2xx_hx4700.o
 obj-$(CONFIG_PCMCIA_PXA2XX)			+= pxa2xx_base.o $(pxa2xx-obj-y)
 
 obj-$(CONFIG_PCMCIA_XXS1500)			+= xxs1500_ss.o
+
+obj-$(CONFIG_CNC18XX_PCMCIA)          += soc_common.o  cnc18xx_socket.o
