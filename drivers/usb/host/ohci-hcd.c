@@ -1238,6 +1238,11 @@ MODULE_LICENSE ("GPL");
 #define SA1111_DRIVER		ohci_hcd_sa1111_driver
 #endif
 
+#ifdef CONFIG_USB_CNC18XX_OHCI
+#include "ohci-cnc18xx.c"
+#define PLATFORM_DRIVER		ohci_hcd_cnc18xx_driver
+#endif
+
 #ifdef CONFIG_USB_OHCI_HCD_PPC_OF
 #include "ohci-ppc-of.c"
 #define OF_PLATFORM_DRIVER	ohci_hcd_ppc_of_driver

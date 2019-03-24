@@ -1286,6 +1286,11 @@ MODULE_LICENSE ("GPL");
 #define PLATFORM_DRIVER		ehci_hcd_sh_driver
 #endif
 
+#ifdef CONFIG_USB_CNC18XX_EHCI
+#include "ehci-cnc18xx.c"
+#define PLATFORM_DRIVER		ehci_hcd_cnc18xx_driver
+#endif
+
 #ifdef CONFIG_PPC_PS3
 #include "ehci-ps3.c"
 #define	PS3_SYSTEM_BUS_DRIVER	ps3_ehci_driver
