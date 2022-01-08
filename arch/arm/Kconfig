@@ -405,6 +405,43 @@ config ARCH_FOOTBRIDGE
 	  Support for systems based on the DC21285 companion chip
 	  ("FootBridge"), such as the Simtec CATS and the Rebel NetWinder.
 
+config ARCH_MXC
+	bool "Freescale MXC/iMX-based"
+	select GENERIC_TIME
+	select GENERIC_CLOCKEVENTS
+	select ARCH_MTD_XIP
+	select GENERIC_GPIO
+	select ARCH_REQUIRE_GPIOLIB
+	select HAVE_CLK
+	help
+	  Support for Freescale MXC/iMX-based family of processors
+
+
+config ARCH_CELESTIAL
+	bool "Cavium celestial platform"
+	select HAVE_CLK
+	select GENERIC_TIME
+	select GENERIC_CLOCKEVENTS
+	select COMMON_CLKDEV
+	select TICK_ONESHOT
+	select ZONE_DMA
+	help
+	  Support for Cavium's Celestial SoC chip.
+
+
+config ARCH_STMP3XXX
+	bool "Freescale STMP3xxx"
+	select CPU_ARM926T
+	select HAVE_CLK
+	select COMMON_CLKDEV
+	select ARCH_REQUIRE_GPIOLIB
+	select GENERIC_TIME
+	select GENERIC_CLOCKEVENTS
+	select GENERIC_GPIO
+	select USB_ARCH_HAS_EHCI
+	help
+	  Support for systems based on the Freescale 3xxx CPUs.
+
 config ARCH_NETX
 	bool "Hilscher NetX based"
 	select ARM_VIC
@@ -733,6 +770,8 @@ source "arch/arm/mach-axxia/Kconfig"
 source "arch/arm/mach-bcm/Kconfig"
 
 source "arch/arm/mach-berlin/Kconfig"
+
+source "arch/arm/mach-celestial/Kconfig"
 
 source "arch/arm/mach-clps711x/Kconfig"
 
@@ -1222,6 +1261,12 @@ config ARM_ERRATA_852423
 endmenu
 
 source "arch/arm/common/Kconfig"
+
+config FORCE_MAX_ZONEORDER
+	int "Maximum Zone order" 
+	range 11 15 if ARCH_CELESTIAL
+	default "9" if SA111
+	default "12" if ARCH_CELESTIAL
 
 menu "Bus support"
 
